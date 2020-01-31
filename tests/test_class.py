@@ -1,4 +1,4 @@
-from utils.utils import create_folder, delete_folder, upload_file, get_group_folder_permissions, set_group_folder_permissions, get_user_id_by_name
+from utils.utils import create_folder, delete_folder, upload_file, get_user_id_by_name, patch_user_params
 from dataextractor.extract_json_data import find_json_key
 import pytest
 
@@ -51,18 +51,10 @@ def test_upload_file_forbidden_character():
 
 
 @pytest.mark.regression
-def test_change_user_permission():
+def test_set_user_permission_to_standard():
     user_id = get_user_id_by_name('rpietrzy')
-
-
-
-test_change_user_permission()
-
-
-
-
-
-
-
-
-
+    body = {"userType": "standard"}
+    response = patch_user_params(user_id, body)
+    assert response.status_code == 200, 'Status code different than 200'
+    current_user_type = find_json_key(response, 'userType')
+    assert current_user_type[0] == 'standard', 'userType different than standard'

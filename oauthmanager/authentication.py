@@ -16,9 +16,7 @@ def get_login_response():
               'grant_type': grant_type}
 
     response = requests.post(url, params=params, headers={'Content-Type': 'application/x-www-form-urlencoded'})
-    print(response.content)
-
-get_login_response()
+    return response
 
 
 def auth_header(method):

@@ -91,14 +91,11 @@ def get_user_id_by_name(user_name):
         else:
             print("User not found!")
 
-
-
-
-
-
-
-
-get_user_id_by_name()
+def patch_user_params(user_id, body):
+    url = ApiLinks.BASE_URI + ApiLinks.USERS + str(user_id)
+    body_json = extract_json_data.parse_body_to_json(body)
+    response = requests.patch(url, body_json, headers=auth_header('patch'))
+    return response
 
 
 
